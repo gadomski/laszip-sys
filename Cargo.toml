@@ -8,7 +8,7 @@ repository = "https://github.com/gadomski/laszip-sys"
 documentation = "https://docs.rs/laszip-sys"
 homepage = "https://github.com/gadomski/laszip-sys"
 readme = "README.md"
-keyworks = ["lidar", "laszip", "las", "pointcloud"]
+keywords = ["lidar", "laszip", "las", "pointcloud"]
 license = "MIT"
 
 [build-dependencies]
