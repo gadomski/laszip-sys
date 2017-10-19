@@ -11,6 +11,9 @@ readme = "README.md"
 keywords = ["lidar", "laszip", "las", "pointcloud"]
 license = "MIT"
 
+[badges]
+travis-ci = { repository = "gadomski/laszip-sys" }
+
 [build-dependencies]
 bindgen = "0.30"
 

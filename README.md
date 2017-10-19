@@ -2,6 +2,8 @@
 
 Bindgen FFI bindings to the C API of [laszip](https://www.laszip.org/).
 
+[![Build Status](https://travis-ci.org/gadomski/laszip-sys.svg?branch=master)](https://travis-ci.org/gadomski/laszip-sys)
+
 ## laszip
 
 LASzip is a free and lossless LiDAR compression format, based on the [las](https://www.asprs.org/committee-general/laser-las-file-format-exchange-activities.html) format.
