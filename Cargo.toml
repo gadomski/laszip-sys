@@ -10,6 +10,7 @@ homepage = "https://github.com/gadomski/laszip-sys"
 readme = "README.md"
 keywords = ["lidar", "laszip", "las", "pointcloud"]
 license = "MIT"
+links = "laszip"
 
 [badges]
 travis-ci = { repository = "gadomski/laszip-sys" }
