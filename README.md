@@ -30,3 +30,4 @@ cargo test
 - [liblas](https://www.liblas.org/)
 - [LAStools](https://rapidlasso.com/lastools/)
 - [las-rs](https://github.com/gadomski/las-rs)
+- [laz-perf](https://github.com/hobu/laz-perf)
