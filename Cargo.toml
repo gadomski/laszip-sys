@@ -2,6 +2,14 @@
 name = "laszip-sys"
 version = "0.1.0"
 authors = ["Pete Gadomski <pete.gadomski@gmail.com>"]
+categories = ["compression", "external-ffi-bindings", "science"]
+description = "Bindgen bindings to laszip"
+repository = "https://github.com/gadomski/laszip-sys"
+documentation = "https://docs.rs/laszip-sys"
+homepage = "https://github.com/gadomski/laszip-sys"
+readme = "README.md"
+keyworks = ["lidar", "laszip", "las", "pointcloud"]
+license = "MIT"
 
 [build-dependencies]
 bindgen = "0.30"
