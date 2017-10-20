@@ -1,5 +1,5 @@
-use laszip_sys;
 use Result;
+use laszip_sys;
 use std::sync::Mutex;
 
 lazy_static! {

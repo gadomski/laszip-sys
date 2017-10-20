@@ -1,4 +1,4 @@
-use {Result, Dll};
+use {Dll, Result};
 use laszip_sys;
 
 pub fn version() -> Result<Version> {
