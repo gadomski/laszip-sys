@@ -1,12 +1,16 @@
 extern crate laszip_sys;
 #[macro_use]
+extern crate lazy_static;
+#[macro_use]
 extern crate quick_error;
 
 #[macro_use]
 mod macros;
 
+mod dll;
 mod version;
 
+pub use dll::Dll;
 pub use version::{Version, version};
 
 quick_error! {

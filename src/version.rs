@@ -1,4 +1,4 @@
-use Result;
+use {Result, Dll};
 use laszip_sys;
 
 pub fn version() -> Result<Version> {
@@ -7,14 +7,13 @@ pub fn version() -> Result<Version> {
     let mut revision = 0;
     let mut build = 0;
     unsafe {
-        laszip_try_without_pointer!(laszip_sys::laszip_load_dll());
+        let _dll = Dll::load()?;
         laszip_try_without_pointer!(laszip_sys::laszip_get_version(
             &mut major,
             &mut minor,
             &mut revision,
             &mut build,
         ));
-        laszip_try_without_pointer!(laszip_sys::laszip_unload_dll());
     }
     Ok(Version {
         major: major,
@@ -37,5 +36,13 @@ mod tests {
     #[test]
     fn version() {
         super::version().unwrap();
+    }
+
+    #[test]
+    fn multithreaded_version() {
+        use std::thread;
+        for _ in 0..10 {
+            thread::spawn(|| super::version().unwrap());
+        }
     }
 }
