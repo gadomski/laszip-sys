@@ -1,6 +1,6 @@
-# laszip-sys
+# laszip-rs
 
-Bindgen FFI bindings to the C API of [laszip](https://www.laszip.org/).
+Bindings to the C API of [laszip](https://www.laszip.org/) for Rust.
 
 [![Build Status](https://travis-ci.org/gadomski/laszip-rs.svg?branch=master)](https://travis-ci.org/gadomski/laszip-rs)
 
