@@ -1,18 +1,19 @@
 [package]
-name = "laszip"
+name = "laszip-sys"
 version = "0.1.0"
 authors = ["Pete Gadomski <pete.gadomski@gmail.com>"]
 categories = ["compression", "external-ffi-bindings", "science"]
-description = "Bindings to laszip"
+description = "Low level bindings to laszip"
 repository = "https://github.com/gadomski/laszip-rs"
-documentation = "https://docs.rs/laszip"
+documentation = "https://docs.rs/laszip-sys"
 homepage = "https://github.com/gadomski/laszip-rs"
 readme = "README.md"
 keywords = ["lidar", "laszip", "las", "pointcloud"]
 license = "MIT"
+links = "laszip"
 
-[dependencies]
-laszip-sys = { path = "laszip-sys" }
+[build-dependencies]
+bindgen = "0.30"
 
-[workspace]
-members = ["laszip-sys"]
+[dev-dependencies]
+tempfile = "2.2"
