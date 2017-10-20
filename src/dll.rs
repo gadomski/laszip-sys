@@ -27,7 +27,10 @@ impl Drop for Dll {
         *counter -= 1;
         if *counter == 0 {
             unsafe {
-                laszip_sys::laszip_unload_dll();
+                let result = laszip_sys::laszip_unload_dll();
+                if result != 0 {
+                    panic!("error when unloading laszip dll: {}", result);
+                }
             }
         }
     }
