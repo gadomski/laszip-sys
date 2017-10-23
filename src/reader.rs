@@ -4,6 +4,8 @@ use std::os::raw::c_void;
 use std::path::Path;
 use std::ptr;
 
+/// Reads las data.
+#[derive(Debug)]
 pub struct Reader {
     is_compressed: bool,
     pointer: *mut c_void,
@@ -11,6 +13,14 @@ pub struct Reader {
 }
 
 impl Reader {
+    /// Opens a reader for a provided path.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use laszip::Reader;
+    /// let reader = Reader::from_path("data/autzen.laz").unwrap();
+    /// ```
     pub fn from_path<P: AsRef<Path>>(path: P) -> Result<Reader> {
         use std::ffi::CString;
 
@@ -32,35 +42,21 @@ impl Reader {
         })
     }
 
+    /// Returns true if this reader's data is compressed.
+    ///
+    /// Laszip readers can be used to read uncompressed laz data.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use laszip::Reader;
+    /// let reader = Reader::from_path("data/autzen.laz").unwrap();
+    /// assert!(reader.is_compressed());
+    /// let reader = Reader::from_path("data/autzen.las").unwrap();
+    /// assert!(!reader.is_compressed());
+    /// ```
     pub fn is_compressed(&self) -> bool {
         self.is_compressed
-    }
-
-    pub fn point_count(&self) -> Result<i64> {
-        let mut count = 0;
-        unsafe {
-            laszip_try!(
-                laszip_sys::laszip_get_point_count(self.pointer, &mut count),
-                self.pointer
-            );
-        }
-        Ok(count)
-    }
-
-    pub fn is_indexed(&self) -> Result<bool> {
-        self.has_spatial_index().map(|(is_indexed, _)| is_indexed)
-    }
-
-    fn has_spatial_index(&self) -> Result<(bool, bool)> {
-        let mut is_indexed = 0;
-        let mut is_appended = 0;
-        unsafe {
-            laszip_try!(
-                laszip_sys::laszip_has_spatial_index(self.pointer, &mut is_indexed, &mut is_appended),
-                self.pointer
-            );
-        }
-        Ok((is_indexed != 0, is_appended != 0))
     }
 }
 
@@ -75,14 +71,10 @@ mod tests {
     }
 
     #[test]
-    fn point_count() {
+    fn is_compressed() {
         let reader = Reader::from_path("data/autzen.laz").unwrap();
-        assert_eq!(0, reader.point_count().unwrap());
-    }
-
-    #[test]
-    fn is_indexed() {
-        let reader = Reader::from_path("data/autzen.laz").unwrap();
-        assert!(!reader.is_indexed().unwrap());
+        assert!(reader.is_compressed());
+        let reader = Reader::from_path("data/autzen.las").unwrap();
+        assert!(!reader.is_compressed());
     }
 }

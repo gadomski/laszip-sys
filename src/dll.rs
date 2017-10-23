@@ -6,6 +6,7 @@ lazy_static! {
     static ref COUNTER: Mutex<usize> = Mutex::new(0);
 }
 
+#[derive(Debug)]
 pub struct Dll {}
 
 impl Dll {
