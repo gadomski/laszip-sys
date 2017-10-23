@@ -1,3 +1,5 @@
+#![cfg_attr(feature = "cargo-clippy", allow(mutex_atomic))]
+
 use Result;
 use laszip_sys;
 use std::sync::Mutex;
