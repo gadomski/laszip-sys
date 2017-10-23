@@ -13,8 +13,8 @@ license = "MIT"
 
 [dependencies]
 laszip-sys = { path = "laszip-sys" }
-lazy_static = "*"
-quick-error = "*"
+lazy_static = "0.2"
+quick-error = "1.2"
 
 [workspace]
 members = ["laszip-sys"]
