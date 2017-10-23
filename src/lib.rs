@@ -1,43 +1,84 @@
-//! Compress and decompress laz files.
+#![allow(non_upper_case_globals)]
+#![allow(non_camel_case_types)]
+#![allow(non_snake_case)]
 
-#![deny(missing_docs, missing_debug_implementations, missing_copy_implementations, trivial_casts,
-        trivial_numeric_casts, unstable_features, unused_import_braces, unused_qualifications)]
+#[cfg(test)]
+extern crate tempfile;
 
-extern crate laszip_sys;
-#[macro_use]
-extern crate lazy_static;
-#[macro_use]
-extern crate quick_error;
+include!(concat!(env!("OUT_DIR"), "/bindings.rs"));
 
-#[macro_use]
-mod macros;
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use std::ffi::CString;
+    use std::ptr;
+    use tempfile::NamedTempFile;
 
-mod dll;
-mod reader;
-mod version;
+    #[test]
+    fn example_one() {
+        unsafe {
+            assert_eq!(0, laszip_load_dll());
 
-use dll::Dll;
-pub use reader::Reader;
-pub use version::{Version, version};
+            let mut version_major = 0;
+            let mut version_minor = 0;
+            let mut version_revision = 0;
+            let mut version_build = 0;
+            assert_eq!(
+                0,
+                laszip_get_version(
+                    &mut version_major,
+                    &mut version_minor,
+                    &mut version_revision,
+                    &mut version_build,
+                )
+            );
 
-quick_error! {
-    /// Our custom error enum.
-    #[derive(Debug)]
-    pub enum Error {
-        /// Wrapper around `std::ffi::NulError`.
-        FfiNul(err: std::ffi::NulError) {
-            from()
-            cause(err)
-            description(err.description())
-            display("ffi nul error: {}", err)
-        }
-        /// Error from inside of the laszip library.
-        Laszip(code: i32, message: String) {
-            description("error from inside of the laszip library")
-            display("laszip error {}: {}", code, message)
+            let mut reader = ptr::null_mut();
+            assert_eq!(0, laszip_create(&mut reader));
+
+            let mut is_compressed = 0;
+            assert_eq!(
+                0,
+                laszip_open_reader(
+                    reader,
+                    CString::new("data/autzen.laz").unwrap().as_ptr(),
+                    &mut is_compressed,
+                )
+            );
+            assert_eq!(1, is_compressed);
+
+            let mut header = ptr::null_mut();
+            assert_eq!(0, laszip_get_header_pointer(reader, &mut header));
+
+            let npoints = if (*header).number_of_point_records == 0 {
+                (*header).extended_number_of_point_records
+            } else {
+                (*header).number_of_point_records as u64
+            };
+            assert_eq!(110000, npoints);
+
+            let mut point = ptr::null_mut();
+            assert_eq!(0, laszip_get_point_pointer(reader, &mut point));
+
+            let mut writer = ptr::null_mut();
+            assert_eq!(0, laszip_create(&mut writer));
+
+            assert_eq!(0, laszip_set_header(writer, header));
+
+            let outfile = NamedTempFile::new().unwrap();
+            let path = CString::new(outfile.path().to_string_lossy().as_ref()).unwrap();
+            assert_eq!(0, laszip_open_writer(writer, path.as_ptr(), 1));
+
+            for _ in 0..npoints {
+                assert_eq!(0, laszip_read_point(reader));
+                assert_eq!(0, laszip_set_point(writer, point));
+                assert_eq!(0, laszip_write_point(writer));
+            }
+
+            assert_eq!(0, laszip_close_writer(writer));
+            assert_eq!(0, laszip_destroy(writer));
+            assert_eq!(0, laszip_close_reader(reader));
+            assert_eq!(0, laszip_destroy(reader));
         }
     }
 }
-
-/// Our custom result type.
-pub type Result<T> = std::result::Result<T, Error>;
