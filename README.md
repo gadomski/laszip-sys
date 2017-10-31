@@ -2,7 +2,7 @@
 
 Low-level bindings to the C API of [laszip](https://www.laszip.org/) for Rust.
 
-[![Build Status](https://travis-ci.org/gadomski/laszip-rs.svg?branch=master)](https://travis-ci.org/gadomski/laszip-rs)
+[![Build Status](https://travis-ci.org/gadomski/laszip-sys.svg?branch=master)](https://travis-ci.org/gadomski/laszip-sys)
 
 ## laszip
 
@@ -14,7 +14,7 @@ Compression ratios over las of 4:1 and up to 10:1 have been observed in the wild
 Ensure that clang can see the `laszip/laszip_api.h` include file and the `laszip_api` library.
 
 ```
-git clone https://github.com/gadomski/laszip-rs
+git clone https://github.com/gadomski/laszip-sys
 cd laszip-rs/laszip-sys
 cargo build
 ```
