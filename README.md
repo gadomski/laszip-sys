@@ -3,6 +3,8 @@
 Low-level bindings to the C API of [laszip](https://www.laszip.org/) for Rust.
 A native Rust implementation of laz is available at https://github.com/tmontaigu/laz-rs.
 
+[![Continuous Integration](https://github.com/gadomski/laszip-sys/actions/workflows/ci.yml/badge.svg)](https://github.com/gadomski/laszip-sys/actions/workflows/ci.yml)
+
 ## laszip
 
 LASzip is a free and lossless LiDAR compression format, based on the [las](https://www.asprs.org/committee-general/laser-las-file-format-exchange-activities.html) format.
