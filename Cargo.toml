@@ -1,6 +1,6 @@
 [package]
 name = "laszip-sys"
-version = "0.1.1"
+version = "0.1.2"
 authors = ["Pete Gadomski <pete.gadomski@gmail.com>"]
 categories = ["compression", "external-ffi-bindings", "science"]
 description = "Low level bindings to laszip"
