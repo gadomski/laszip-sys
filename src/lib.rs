@@ -5,7 +5,11 @@
 #[cfg(test)]
 extern crate tempfile;
 
-include!(concat!(env!("OUT_DIR"), "/bindings.rs"));
+#[allow(clippy::all)]
+mod bindings {
+    include!(concat!(env!("OUT_DIR"), "/bindings.rs"));
+}
+pub use bindings::*;
 
 #[cfg(test)]
 mod tests {
