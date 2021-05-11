@@ -1,6 +1,7 @@
 # laszip-sys
 
 Low-level bindings to the C API of [laszip](https://www.laszip.org/) for Rust.
+A native Rust implementation of laz is available at https://github.com/tmontaigu/laz-rs.
 
 [![Build Status](https://travis-ci.org/gadomski/laszip-sys.svg?branch=master)](https://travis-ci.org/gadomski/laszip-sys)
 
