@@ -37,13 +37,10 @@ mod tests {
             assert_eq!(0, laszip_create(&mut reader));
 
             let mut is_compressed = 0;
+            let path = CString::new("data/autzen.laz").unwrap();
             assert_eq!(
                 0,
-                laszip_open_reader(
-                    reader,
-                    CString::new("data/autzen.laz").unwrap().as_ptr(),
-                    &mut is_compressed,
-                )
+                laszip_open_reader(reader, path.as_ptr(), &mut is_compressed,)
             );
             assert_eq!(1, is_compressed);
 
