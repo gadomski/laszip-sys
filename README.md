@@ -4,6 +4,7 @@ Low-level bindings to the C API of [laszip](https://www.laszip.org/) for Rust.
 A native Rust implementation of laz is available at https://github.com/tmontaigu/laz-rs.
 
 [![Continuous Integration](https://github.com/gadomski/laszip-sys/actions/workflows/ci.yml/badge.svg)](https://github.com/gadomski/laszip-sys/actions/workflows/ci.yml)
+[![Crates.io](https://img.shields.io/crates/v/laszip-sys)](https://crates.io/crates/laszip-sys)
 
 ## laszip
 
